@@ -1,6 +1,15 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { environment } from './environments/environment';
+import { AppModule } from './app/app.module';
+import mapboxgl from 'mapbox-gl';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+if(!navigator.geolocation) {
+  alert('El navegador no soporta la ubicacion');
+
+  throw new Error('Sim geolocalizacion')
+}
+
+mapboxgl.accessToken = environment.MAPBOX
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
